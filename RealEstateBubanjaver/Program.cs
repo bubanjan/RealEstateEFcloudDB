@@ -186,20 +186,14 @@ namespace realestateBubanjaEF
         }
         static void ListEstates()
         {
-            if (database.Estate.Count() == 0)
+            var estates = database.Estate.Include(e => e.Type).ToList();
+            if (estates.Count() == 0)
             {
                 Console.WriteLine("There are no estates in the database.");
             }
             else
             {
-                Console.WriteLine("Properties in database:");
-                foreach (var e in database.Estate.Include(e=>e.Type))
-                {
-                    Console.WriteLine("____________________________________________________________________________________________________________________________________________________");
-                    Console.WriteLine("| ID:  " + e.ID + " | " + e.Type.Name + " | LOCATION: " + e.Location + " | DESCRIPTION: " + e.Description + " | SIZE: " + e.Size +
-                         " | PRICE: " + e.Price);
-                    Console.WriteLine("____________________________________________________________________________________________________________________________________________________");
-                }
+                Display(estates);
 
             }
 
@@ -214,13 +208,7 @@ namespace realestateBubanjaEF
             var estates = database.Estate.Include(e => e.Type).Where(s => s.Size >= x && s.Size <= y).ToList();
             if (estates.Count != 0 && estates != null)
             {
-                foreach (var e in estates)
-                {
-                    Console.WriteLine("____________________________________________________________________________________________________________________________________________________");
-                    Console.WriteLine("| ID:  " + e.ID + " | " + e.Type.Name + " | LOCATION: " + e.Location + " | DESCRIPTION: " + e.Description + " | SIZE: " + e.Size +
-                         " | PRICE: " + e.Price);
-                    Console.WriteLine("____________________________________________________________________________________________________________________________________________________");
-                }
+                Display(estates);
             }
             else { Console.WriteLine("There is no real estates in this size"); }
            
@@ -235,13 +223,7 @@ namespace realestateBubanjaEF
             var estates = database.Estate.Include(e => e.Type).Where(s => s.Price >= x && s.Price <= y).ToList();
             if (estates.Count != 0 && estates != null)
             {
-                foreach (var e in estates)
-                {
-                    Console.WriteLine("____________________________________________________________________________________________________________________________________________________");
-                    Console.WriteLine("| ID:  " + e.ID + " | " + e.Type.Name + " | LOCATION: " + e.Location + " | DESCRIPTION: " + e.Description + " | SIZE: " + e.Size +
-                         " | PRICE: " + e.Price);
-                    Console.WriteLine("____________________________________________________________________________________________________________________________________________________");
-                }
+                Display(estates);
             }
             else { Console.WriteLine("There is no real estates in this price"); }
         }
@@ -287,6 +269,17 @@ namespace realestateBubanjaEF
             database.SaveChanges();
             Console.WriteLine("The property is added.");
 
+        }
+
+        static void Display(List<Estate> estates)
+        {
+            foreach (var e in estates)
+            {
+                Console.WriteLine("____________________________________________________________________________________________________________________________________________________");
+                Console.WriteLine("| ID:  " + e.ID + " | " + e.Type.Name + " | LOCATION: " + e.Location + " | DESCRIPTION: " + e.Description + " | SIZE: " + e.Size +
+                     " | PRICE: " + e.Price);
+                Console.WriteLine("____________________________________________________________________________________________________________________________________________________");
+            }
         }
     }
 }
