@@ -59,7 +59,7 @@ namespace realestateBubanjaEF
                 while (true)
                 {
 
-                    string option = ShowMenu("What do you want to do?", new[] {
+                    string option = ShowMenu("Please select option:", new[] {
                         "Show all properties",
                         "Enter and save new property",
                         "Search properties by size",
@@ -279,9 +279,10 @@ namespace realestateBubanjaEF
            
             foreach (var e in estates)
             {
+                double pricePerM = (e.Price / e.Size);
                 Console.WriteLine("____________________________________________________________________________________________________________________________________________________");
                 Console.WriteLine("| ID:  " + e.ID + " | " + e.Type.Name + " | LOCATION: " + e.Location +" SIZE: " + e.Size +
-                     " | PRICE: " + e.Price);
+                     " m2 | PRICE: " + e.Price + " EUR, Price per m2 is: " + pricePerM + " EUR/m2");
                 Console.WriteLine("| DESCRIPTION: " + e.Description  );
                 Console.WriteLine("____________________________________________________________________________________________________________________________________________________");
             }
