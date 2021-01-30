@@ -186,6 +186,7 @@ namespace realestateBubanjaEF
         }
         static void ListEstates()
         {
+            Console.WriteLine("Please wait, connecting with database server...");
             var estates = database.Estate.Include(e => e.Type).ToList();
             if (estates.Count() == 0)
             {
@@ -203,6 +204,7 @@ namespace realestateBubanjaEF
         {          
             int x = ReadInt("Write minimum size of property in m2");        
             int y = ReadInt("Write minimum size of property in m2");
+            Console.WriteLine("Please wait, connecting with database server...");
 
             Console.WriteLine("RESULT OF SEARCHING: ");
             var estates = database.Estate.Include(e => e.Type).Where(s => s.Size >= x && s.Size <= y).ToList();
@@ -218,6 +220,7 @@ namespace realestateBubanjaEF
         {          
             int x = ReadInt("Write minimum price of property in EUR");        
             int y = ReadInt("Write maximum price of property in EUR");
+            Console.WriteLine("Please wait, connecting with database server...");
 
             Console.WriteLine("RESULT OF SEARCHING: ");
             var estates = database.Estate.Include(e => e.Type).Where(s => s.Price >= x && s.Price <= y).ToList();
@@ -273,6 +276,7 @@ namespace realestateBubanjaEF
 
         static void Display(List<Estate> estates)
         {
+           
             foreach (var e in estates)
             {
                 Console.WriteLine("____________________________________________________________________________________________________________________________________________________");
