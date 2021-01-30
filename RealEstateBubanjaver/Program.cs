@@ -206,37 +206,44 @@ namespace realestateBubanjaEF
         }
 
         static void SearchBySize()
-        {
-            Console.WriteLine("Write minimum size of property in m2 ");
-            int x = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("Write maximum size of property in m2 ");
-            int y = Convert.ToInt32(Console.ReadLine());
+        {          
+            int x = ReadInt("Write minimum size of property in m2");        
+            int y = ReadInt("Write minimum size of property in m2");
+
             Console.WriteLine("RESULT OF SEARCHING: ");
-            var estates = database.Estate.Where(s => s.Size >= x && s.Size <= y);
-            foreach (var e in estates)
+            var estates = database.Estate.Include(e => e.Type).Where(s => s.Size >= x && s.Size <= y).ToList();
+            if (estates.Count != 0 && estates != null)
             {
-                Console.WriteLine("____________________________________________________________________________________________________________________________________________________");
-                Console.WriteLine("| ID:  " + e.ID + " | " + e.Type.Name + " | LOCATION: " + e.Location + " | DESCRIPTION: " + e.Description + " | SIZE: " + e.Size +
-                     " | PRICE: " + e.Price);
-                Console.WriteLine("____________________________________________________________________________________________________________________________________________________");
+                foreach (var e in estates)
+                {
+                    Console.WriteLine("____________________________________________________________________________________________________________________________________________________");
+                    Console.WriteLine("| ID:  " + e.ID + " | " + e.Type.Name + " | LOCATION: " + e.Location + " | DESCRIPTION: " + e.Description + " | SIZE: " + e.Size +
+                         " | PRICE: " + e.Price);
+                    Console.WriteLine("____________________________________________________________________________________________________________________________________________________");
+                }
             }
+            else { Console.WriteLine("There is no real estates in this size"); }
+           
         }
 
         static void SearchByPrice()
-        {
-            Console.WriteLine("Write minimum price of property in EUR ");
-            int x = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("Write maximum price of property in EUR ");
-            int y = Convert.ToInt32(Console.ReadLine());
+        {          
+            int x = ReadInt("Write minimum price of property in EUR");        
+            int y = ReadInt("Write maximum price of property in EUR");
+
             Console.WriteLine("RESULT OF SEARCHING: ");
-            var estates = database.Estate.Where(s => s.Price >= x && s.Price <= y);
-            foreach (var e in estates)
+            var estates = database.Estate.Include(e => e.Type).Where(s => s.Price >= x && s.Price <= y).ToList();
+            if (estates.Count != 0 && estates != null)
             {
-                Console.WriteLine("____________________________________________________________________________________________________________________________________________________");
-                Console.WriteLine("| ID:  " + e.ID + " | " + e.Type.Name + " | LOCATION: " + e.Location + " | DESCRIPTION: " + e.Description + " | SIZE: " + e.Size +
-                     " | PRICE: " + e.Price);
-                Console.WriteLine("____________________________________________________________________________________________________________________________________________________");
+                foreach (var e in estates)
+                {
+                    Console.WriteLine("____________________________________________________________________________________________________________________________________________________");
+                    Console.WriteLine("| ID:  " + e.ID + " | " + e.Type.Name + " | LOCATION: " + e.Location + " | DESCRIPTION: " + e.Description + " | SIZE: " + e.Size +
+                         " | PRICE: " + e.Price);
+                    Console.WriteLine("____________________________________________________________________________________________________________________________________________________");
+                }
             }
+            else { Console.WriteLine("There is no real estates in this price"); }
         }
 
         
