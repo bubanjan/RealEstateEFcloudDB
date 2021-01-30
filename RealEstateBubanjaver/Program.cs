@@ -276,8 +276,9 @@ namespace realestateBubanjaEF
             foreach (var e in estates)
             {
                 Console.WriteLine("____________________________________________________________________________________________________________________________________________________");
-                Console.WriteLine("| ID:  " + e.ID + " | " + e.Type.Name + " | LOCATION: " + e.Location + " | DESCRIPTION: " + e.Description + " | SIZE: " + e.Size +
+                Console.WriteLine("| ID:  " + e.ID + " | " + e.Type.Name + " | LOCATION: " + e.Location +" SIZE: " + e.Size +
                      " | PRICE: " + e.Price);
+                Console.WriteLine("| DESCRIPTION: " + e.Description  );
                 Console.WriteLine("____________________________________________________________________________________________________________________________________________________");
             }
         }
