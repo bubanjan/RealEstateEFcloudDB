@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using realestateBubanjaEF;
+using realestateBubanjaEF.Models;
 
 namespace RealEstateBubanjaver_.Migrations
 {

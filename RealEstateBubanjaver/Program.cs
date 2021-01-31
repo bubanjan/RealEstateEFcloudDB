@@ -8,50 +8,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 using System.Data;
+using realestateBubanjaEF.Models;
 
 namespace realestateBubanjaEF
 {
     
-    public class AppDbContext : DbContext
-    {
-        public DbSet<Estate> Estate { get; set; }
-        public DbSet<Type> Type { get; set; }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder options)
-        {
-            options.UseSqlServer(@"Server = den1.mssql8.gear.host;Database=realestatedbef;Uid=realestatedbef;Pwd=Ke0kd3r~?hCU;");
-        }  
-    }
-
-    public class Type
-    {
-        [Key]
-        public int ID { get; set; }
-        public string Name { get; set; }
-    }
-
-    public class Estate
-    {
-        [Key]
-        public int ID { get; set; }
-        public Type Type { get; set; }
-        public string Location { get; set; }
-        public string Description { get; set; }
-        public int Size { get; set; }
-        public int Price { get; set; }
-
-    }
-
-
 
     public class Program
     {
         static AppDbContext database;
 
-
         static void Main(string[] args)
         {
-
 
             Console.ForegroundColor = ConsoleColor.DarkBlue;
             using (database = new AppDbContext())
@@ -78,16 +46,12 @@ namespace realestateBubanjaEF
 
                     Console.WriteLine();
 
-
                 }
             }
         }
 
-
-        static string ShowMenu(string prompt, string[] options)
+        static void Logo()
         {
-
-
 
             Console.BackgroundColor = ConsoleColor.Magenta;
             Console.WriteLine("                               ");
@@ -104,6 +68,12 @@ namespace realestateBubanjaEF
 
             Console.WriteLine("                               ");
             Console.ResetColor();
+        }
+
+        static string ShowMenu(string prompt, string[] options)
+        {
+            Logo();
+
             Console.WriteLine(prompt);
 
             int selected = 0;
@@ -195,7 +165,6 @@ namespace realestateBubanjaEF
             else
             {
                 Display(estates);
-
             }
 
         }
@@ -230,13 +199,10 @@ namespace realestateBubanjaEF
             }
             else { Console.WriteLine("There is no real estates in this price"); }
         }
-
-        
-
+       
         static void DeleteEstate()
         {
             Estate[] estates = database.Estate.ToArray();
-
             
             string estatesID = ShowMenu("SELECT ID:  ", estates.Select(e => Convert.ToString(e.ID)).ToArray());
             var estate = estates.First(e => Convert.ToString(e.ID) == estatesID);
@@ -245,20 +211,18 @@ namespace realestateBubanjaEF
 
             Console.WriteLine("estate with ID: " + estate.ID + " is deleted.");
         }
-
-       
-
+     
         static void AddNewProperty2()
         {
             WriteUnderlined("SELECT TYPE:");
 
-            Type type = new Type();
+            realestateBubanjaEF.Models.Type type = new realestateBubanjaEF.Models.Type();
 
             string[] types = database.Type.Select(t => t.Name).ToArray();
 
             string selectedTypeName = ShowMenu("Select type of property:", types);
 
-            Type selectedType = database.Type.First(t => t.Name == selectedTypeName);
+            realestateBubanjaEF.Models.Type selectedType = database.Type.First(t => t.Name == selectedTypeName);
 
             Estate estate = new Estate();
             estate.Type = selectedType;
